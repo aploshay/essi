@@ -7,6 +7,10 @@ Hyrax.config do |config|
   config.register_curation_concern :paged_resource
   # Injected via `rails g hyrax:work Scientific`
   config.register_curation_concern :scientific
+  # Injected via `rails g hyrax:work DigitalArchivalObject`
+  config.register_curation_concern :digital_archival_object
+  # Injected via `rails g hyrax:work PublishedWork`
+  config.register_curation_concern :published_work
   # Register roles that are expected by your implementation.
   # @see Hyrax::RoleRegistry for additional details.
   # @note there are magical roles as defined in Hyrax::RoleRegistry::MAGIC_ROLES

@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      digital_archival_object:     'fa fa-file-text-o'
+    select_type:
+      digital_archival_object:
+        # TODO: translate `human_name` into Chinese
+        description:        "Digital archival object 作品"
+        name:               "Digital Archival Object"
+        # TODO: translate `human_name` into Chinese

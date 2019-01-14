@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      digital_archival_object:     'fa fa-file-text-o'
+    select_type:
+      digital_archival_object:
+        # TODO: translate `human_name` into Spanish
+        description:        "Digital archival object trabajos"
+        name:               "Digital Archival Object"
+        # TODO: translate `human_name` into Spanish

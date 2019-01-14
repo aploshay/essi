@@ -1,0 +1,8 @@
+pt-BR:
+  hyrax:
+    icons:
+      digital_archival_object:     'fa fa-file-text-o'
+    select_type:
+      digital_archival_object:
+        description:        "Digital archival object trabalhos"
+        name:               "Digital Archival Object"
