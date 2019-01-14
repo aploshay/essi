@@ -12,21 +12,21 @@ describe Hyrax::Actors::FileActor do
   context 'when :store_original_files is false', :clean do
     it 'sets the mime_type to an external body redirect' do
       expect(CharacterizeJob).not_to receive(:perform_later)
-      allow(ESSI.config).to receive(:[]) \
-        .with(:store_original_files) \
+      allow(ESSI.config).to receive(:dig) \
+        .with(:essi, :store_original_files) \
         .and_return(false)
-      allow(ESSI.config).to receive(:[]) \
-        .with(:create_hocr_files) \
+      allow(ESSI.config).to receive(:dig) \
+        .with(:essi, :create_hocr_files) \
         .and_return(true)
-      allow(ESSI.config).to receive(:[]) \
-        .with(:index_hocr_files) \
+      allow(ESSI.config).to receive(:dig) \
+        .with(:essi, :index_hocr_files) \
         .and_return(true)
-      allow(ESSI.config).to receive(:[]) \
-        .with(:master_file_service_url) \
+      allow(ESSI.config).to receive(:dig) \
+        .with(:essi, :master_file_service_url) \
         .and_return('http://service')
       file_actor.ingest_file(io)
       expect(file_set.reload.original_file.mime_type).to include \
-        "#{ESSI.config[:master_file_service_url]}"
+        ESSI.config.dig :essi, :master_file_service_url
     end
   end
 
@@ -34,14 +34,14 @@ describe Hyrax::Actors::FileActor do
     it 'saves an image file to the member file_set' do
       expect(CharacterizeJob).to receive(:perform_later) \
         .with(file_set, String, String)
-      allow(ESSI.config).to receive(:[]) \
-        .with(:store_original_files) \
+      allow(ESSI.config).to receive(:dig) \
+        .with(:essi, :store_original_files) \
         .and_return(true)
-      allow(ESSI.config).to receive(:[]) \
-        .with(:create_hocr_files) \
+      allow(ESSI.config).to receive(:dig) \
+        .with(:essi, :create_hocr_files) \
         .and_return(true)
-      allow(ESSI.config).to receive(:[]) \
-        .with(:index_hocr_files) \
+      allow(ESSI.config).to receive(:dig) \
+        .with(:essi, :index_hocr_files) \
         .and_return(true)
       file_actor.ingest_file(io)
       expect(file_set.reload.original_file.mime_type).to include "image/png"

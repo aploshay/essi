@@ -67,11 +67,11 @@ module Hyrax
         end
 
         def store_files?
-          ESSI.config[:store_original_files]
+          ESSI.config.dig :essi, :store_original_files
         end
     
         def master_file_service_url
-          ESSI.config[:master_file_service_url]
+          ESSI.config.dig :essi, :master_file_service_url
         end
     end
   end
