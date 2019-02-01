@@ -5,14 +5,19 @@ module ESSI
 
     included do
       property :holding_location,
-               predicate: RDF::URI("http://id.loc.gov/ontologies/bibframe/heldBy"),
+               predicate: RDF::Vocab::BF2.heldBy,
                multiple: false do |index|
+                 index.as :stored_searchable, :facetable
+               end
+      property :series,
+               predicate: RDF::Vocab::BF2.seriesStatement do |index|
                  index.as :stored_searchable, :facetable
                end
 
       property :physical_description,
                predicate: RDF::Vocab::MODS.physicalExtent,
                multiple: false
+
       property :abridger, predicate: RDF::Vocab::MARCRelators.abr
       property :actor, predicate: RDF::Vocab::MARCRelators.act
       property :adapter, predicate: RDF::Vocab::MARCRelators.adp

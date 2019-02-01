@@ -2,9 +2,10 @@
 <%= presenter.attribute_to_html(:creator, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:contributor, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:subject, render_as: :faceted, html_dl: true) %>
+<%= presenter.attribute_to_html(:series, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:publisher, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:language, render_as: :faceted, html_dl: true) %>
-<%= presenter.attribute_to_html(:identifier, render_as: :linked, search_field: 'identifier_tesim', html_dl: true) %>
+<%= presenter.attribute_to_html(:identifier, render_as: :external_link, html_dl: true) %>
 <%= presenter.attribute_to_html(:keyword, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:date_created, render_as: :linked, search_field: 'date_created_tesim', html_dl: true) %>
 <%= presenter.attribute_to_html(:based_near_label, html_dl: true) %>
@@ -15,5 +16,3 @@
 <% if @presenter.respond_to? :holding_location %>
   <%= @presenter.holding_location %>
 <% end %>
-
-

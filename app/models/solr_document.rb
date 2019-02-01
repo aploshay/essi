@@ -29,4 +29,9 @@ class SolrDocument
   def holding_location
     self[Solrizer.solr_name('holding_location')]
   end
+
+  def series
+    self[Solrizer.solr_name('series')]
+  end
+
 end
