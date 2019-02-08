@@ -20,6 +20,8 @@
 /node_modules
 /yarn-error.log
 
+fits.log
+
 .byebug_history
 /.ruby-version
 .ruby-version
@@ -30,3 +32,4 @@
 # Ignore local secrets
 .secrets.sh
 /secrets
+
