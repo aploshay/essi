@@ -16,6 +16,12 @@ Hyrax::FileSetDerivativesService.class_eval do
   private
 
   def create_hocr_derivatives(filename)
-    Rails.logger.info "Time to create a hOCR file for #{filename}"
+    return unless ESSI.config.dig(:essi, :create_hocr_files)
+    # FIXME: add language: parameter logic somewhere -- fileset model?
+    OCRRunner.create(file_set,
+                     { source: :original_file,
+                       outputs: [{ label: 'ocr',
+                                   format: :hocr,
+                                   url: derivative_url('ocr') }]})
   end
 end
