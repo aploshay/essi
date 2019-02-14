@@ -5,13 +5,15 @@ class OCRRunner < Hydra::Derivatives::Runner
     options.each do |directive|
       directive.reverse_merge!(language: 'eng') #FIXME: replace with actual language logic, elsewhere?
     end
-debugger
     options
   end
 
-  # FIXME: attach_ocr? pumpkin does this, but other derivatives don't
+  def self.output_file_service
+    @output_file_service || PersistDirectlyContainedOutputFileService
+  end
 
   # Use the source service configured for this class or default to the global setting
+  # FIXME: handle this through initializers setting @source_file_service value?
   def self.source_file_service
     if ESSI.config.dig(:essi, :store_original_files)
       @source_file_service || Hydra::Derivatives::RetrieveSourceFileService

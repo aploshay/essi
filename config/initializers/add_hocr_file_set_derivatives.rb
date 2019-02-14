@@ -9,19 +9,20 @@ Hyrax::FileSetDerivativesService.class_eval do
       when *file_set.class.video_mime_types           then create_video_derivatives(filename)
       when *file_set.class.image_mime_types
         create_image_derivatives(filename)
-        create_hocr_derivatives(filename)
+        create_hocr_derivatives(filename, uri)
     end
   end
 
   private
 
-  def create_hocr_derivatives(filename)
+  def create_hocr_derivatives(filename, uri)
     return unless ESSI.config.dig(:essi, :create_hocr_files)
     # FIXME: add language: parameter logic somewhere -- fileset model?
     OCRRunner.create(file_set,
                      { source: :original_file,
                        outputs: [{ label: 'ocr',
-                                   format: :hocr,
-                                   url: derivative_url('ocr') }]})
+                                   format: 'hocr',
+                                   container: 'extracted_text',
+                                   url: uri }]})
   end
 end
