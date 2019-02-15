@@ -6,24 +6,23 @@ class PersistDirectlyContainedOutputFileService < Hyrax::PersistDirectlyContaine
       remote_file.content = file
       remote_file.mime_type = determine_mime_type(file)
       remote_file.original_name = determine_original_name(file)
-debugger
-
-debugger
+      # FIXME: remove debugger line, and probably this whole method
+      # debugger
       remote_file.save
       file_set.save
     end
 
-    # FIXME: better handle getting original_name
     # @param file [Hydra::Derivatives::IoDecorator]
     def self.determine_original_name(file)
+#FIXME: check directives
       result = super
       result.present? ? result : "derivative"
     end
 
-    # FIXME: better handle getting mime_type
     # @param file [Hydra::Derivatives::IoDecorator]
     def self.determine_mime_type(file)
+#FIXME: check directives
       result = super
-      result.present? ? result : "appliction/octet-stream"
+      result.present? ? result : "application/octet-stream"
     end
 end

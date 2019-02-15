@@ -14,6 +14,7 @@ module FileSetDerivativesServiceExtensions
       OCRRunner.create(filename,
                        { source: :original_file,
                          outputs: [{ label: "#{file_set.id}-hocr.hocr",
+                                     mime_type: 'text/html',
                                      format: 'hocr',
                                      container: 'extracted_text',
                                      language: 'eng',
