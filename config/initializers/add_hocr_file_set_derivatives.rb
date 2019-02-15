@@ -10,13 +10,12 @@ module FileSetDerivativesServiceExtensions
   private
     def create_hocr_derivatives(filename)
       return unless ESSI.config.dig(:essi, :create_hocr_files)
-      # FIXME: add language: parameter logic somewhere -- fileset model?
       OCRRunner.create(filename,
                        { source: :original_file,
                          outputs: [{ label: 'ocr',
                                      format: 'hocr',
                                      container: 'extracted_text',
-                                     language: 'eng',
+                                     language: file_set.language,
                                      url: uri }]})
     end
 end
