@@ -3,15 +3,15 @@ module FileSetDerivativesServiceExtensions
     super
     case mime_type
       when *file_set.class.image_mime_types
-        create_hocr_derivatives
+        create_hocr_derivatives(filename)
     end
   end
 
   private
-    def create_hocr_derivatives
+    def create_hocr_derivatives(filename)
       return unless ESSI.config.dig(:essi, :create_hocr_files)
       # FIXME: add language: parameter logic somewhere -- fileset model?
-      OCRRunner.create(file_set,
+      OCRRunner.create(filename,
                        { source: :original_file,
                          outputs: [{ label: 'ocr',
                                      format: 'hocr',
