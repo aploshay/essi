@@ -13,7 +13,7 @@ module FileSetDerivativesServiceExtensions
       # FIXME: add language: parameter logic somewhere -- fileset model?
       OCRRunner.create(filename,
                        { source: :original_file,
-                         outputs: [{ label: 'ocr',
+                         outputs: [{ label: "#{file_set.id}-hocr.hocr",
                                      format: 'hocr',
                                      container: 'extracted_text',
                                      language: 'eng',
