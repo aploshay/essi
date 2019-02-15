@@ -8,18 +8,9 @@ class OCRRunner < Hydra::Derivatives::Runner
     options
   end
 
+  # Facilitate storing the output as :extracted_text
   def self.output_file_service
     @output_file_service || PersistDirectlyContainedOutputFileService
-  end
-
-  # Use the source service configured for this class or default to the global setting
-  # FIXME: handle this through initializers setting @source_file_service value?
-  def self.source_file_service
-    if ESSI.config.dig(:essi, :store_original_files)
-      @source_file_service || Hydra::Derivatives::RetrieveSourceFileService
-    else 
-      @source_file_service || Hydra::Derivatives.source_file_service
-    end
   end
 
   def self.processor_class
