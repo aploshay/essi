@@ -6,8 +6,6 @@ class PersistDirectlyContainedOutputFileService < Hyrax::PersistDirectlyContaine
       remote_file.content = file
       remote_file.mime_type = determine_mime_type(file)
       remote_file.original_name = determine_original_name(file)
-      # FIXME: remove debugger line
-      # debugger
       remote_file.save
       file_set.save
     end

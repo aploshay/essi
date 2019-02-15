@@ -1,9 +1,9 @@
 class OCRRunner < Hydra::Derivatives::Runner
 
-  # Adds language: value to each directive
+  # Adds default language: value to each directive
   def self.transform_directives(options)
     options.each do |directive|
-      directive.reverse_merge!(language: 'eng') #FIXME: replace with actual language logic, elsewhere?
+      directive.reverse_merge!(language: 'eng') #FIXME: config default value? set here or in processor?
     end
     options
   end
