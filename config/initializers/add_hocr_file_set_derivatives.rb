@@ -16,7 +16,7 @@ module FileSetDerivativesServiceExtensions
                                      mime_type: 'text/html; charset=utf-8',
                                      format: 'hocr',
                                      container: 'extracted_text',
-                                     language: file_set.language,
+                                     language: file_set.ocr_language,
                                      url: uri }]})
     end
 end
