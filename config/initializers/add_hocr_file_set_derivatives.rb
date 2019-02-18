@@ -12,7 +12,8 @@ module FileSetDerivativesServiceExtensions
       return unless ESSI.config.dig(:essi, :create_hocr_files)
       OCRRunner.create(filename,
                        { source: :original_file,
-                         outputs: [{ label: 'ocr',
+                         outputs: [{ label: "#{file_set.id}-hocr.hocr",
+                                     mime_type: 'text/html; charset=utf-8',
                                      format: 'hocr',
                                      container: 'extracted_text',
                                      language: file_set.language,
