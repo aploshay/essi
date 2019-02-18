@@ -9,7 +9,7 @@ class FileSet < ActiveFedora::Base
      try_language(self.parent.language.entries).present?
     return try_language(ESSI.config.dig(:essi, :fileset_language)).join("+") if
      try_language(ESSI.config.dig(:essi, :fileset_language)).present?
-    ['eng']
+    'eng'
   end
 
   private
