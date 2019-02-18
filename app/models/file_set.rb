@@ -3,20 +3,19 @@ class FileSet < ActiveFedora::Base
   include ::Hyrax::FileSetBehavior
 
   def ocr_language
-    # Future: Use to set language on fileset creation.
-    return try_language(:language).join("+") if
-      try_language(:language).present?
+    return try_language(language.entries).join("+") if
+     try_language(language.entries).present?
     return try_language(self.parent.language.entries).join("+") if
-      try_language(self.parent.language.entries).present?
+     try_language(self.parent.language.entries).present?
     return try_language(ESSI.config.dig(:essi, :fileset_language)).join("+") if
-      try_language(ESSI.config.dig(:essi, :fileset_language)).present?
-    'eng'
+     try_language(ESSI.config.dig(:essi, :fileset_language)).present?
+    ['eng']
   end
 
   private
 
   def try_language(language)
-    (try(language.to_a) || []).reject do |lang|
+    (language || []).reject do |lang|
       Tesseract.languages[lang.to_sym].nil?
     end
   end
