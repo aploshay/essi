@@ -24,7 +24,7 @@ module ExtraLockable
     end
 
     def lock?(key = lock_id)
-      acquire_lock_for(key) { nil }
+      Hyrax::LockManager.new(10,0,0).lock(key) { nil }
       Rails.logger.info "ExtraLockable: No lock found for key: #{key}"
       return false
     rescue Hyrax::LockManager::UnableToAcquireLockError
