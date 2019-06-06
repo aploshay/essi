@@ -87,3 +87,5 @@ gem 'sidekiq'
 gem 'switch_user'
 gem 'iso-639'
 gem 'blacklight_iiif_search'
+
+gem 'scooby_snacks'
