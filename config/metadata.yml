@@ -39,6 +39,7 @@ properties:
     work_title: false
     input: scalar
     range: RDF:Literal
+    data_type: text
 
   title:
     definition: "The title of the resource."
