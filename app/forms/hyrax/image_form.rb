@@ -3,6 +3,7 @@
 module Hyrax
   # Generated form for Image
   class ImageForm < Hyrax::Forms::WorkForm
+    include ScoobySnacks::WorkFormBehavior
     self.model_class = ::Image
     self.terms += [:resource_type]
     self.required_fields -= [:keyword]

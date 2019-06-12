@@ -17,5 +17,6 @@ class Scientific < ActiveFedora::Base
 
   # This must be included at the end, because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)
-  include ::Hyrax::BasicMetadata
+  # include ::Hyrax::BasicMetadata
+  include ScoobySnacks::WorkModelBehavior
 end

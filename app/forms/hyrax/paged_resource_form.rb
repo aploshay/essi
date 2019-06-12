@@ -3,6 +3,7 @@
 module Hyrax
   # Generated form for PagedResource
   class PagedResourceForm < Hyrax::Forms::WorkForm
+    include ScoobySnacks::WorkFormBehavior
     self.model_class = ::PagedResource
     self.terms += [:resource_type, :source_metadata_identifier, :series]
     self.required_fields -= [:title, :creator, :keyword]
