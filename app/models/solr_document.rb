@@ -6,7 +6,7 @@ class SolrDocument
   # Adds Hyrax behaviors to the SolrDocument.
   include Hyrax::SolrDocumentBehavior
   # Adds ScoobySnacks
-  include ScoobySnacks::SolrDocumentBehavior
+  include ScoobySnacks::SolrBehavior
 
 
   # self.unique_key = 'id'
