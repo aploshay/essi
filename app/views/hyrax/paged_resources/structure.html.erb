@@ -1,41 +1,67 @@
-<%= structure_page_header %>
+<% provide :page_title, curation_concern_page_title(curation_concern) %>
+<% provide :page_header do %>
+  <h1><span class="fa fa-sitemap" aria-hidden="true"></span>Edit Structure</h1>
+<% end %>
 
-<div id="list-toolbar">
-  <a href="" data-action="add-to-list">
-    <button class="btn btn-default">
-      <span class="glyphicon glyphicon-plus"></span>
-      Add a Section
-    </button>
-  </a>
-  <!--<button data-action="submit-list" class="btn btn-primary">Save</button>-->
-  <%= button_tag type: 'button', class: 'btn btn-primary',
-                 data: { action: 'submit-list',
-                         prefix: Rails.application.config.relative_url_root || '' } do %>
-    Save
-  <% end %>
-</div>
-<ul class="sortable" data-id="<%= @presenter.id %>" data-class-name="<%= @presenter.model_name.plural %>">
-  <form class="form-inline">
-    <div class="form-group">
-      <label for="structure_label">Structure Label</label>
-      <%= text_field_tag "label", @logical_order.form_label, id: "structure_label", class: "form-control" %>
-    </div>
-  </form>
-  <% @logical_order.nodes.each do |node| %>
-    <%= render "structure_node", node: node %>
-  <% end %>
-  <% @logical_order.unstructured_objects.nodes.each do |node| %>
-    <%= render "structure_node", node: node %>
-  <% end %>
-</ul>
-
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="viewer-modal">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <div class="clearfix"></div>
-      <%= openseadragon_picture_tag '', data: { openseadragon: { showRotationControl: true }} %>
+<div class="row">
+  <div id="structure-tree" class="col-xs-12 col-sm-8" role="main">
+    <div class="panel">
+      <ul class="sortable" data-id="<%= @presenter.id %>" data-class-name="<%= @presenter.model_name.plural %>">
+        <form class="form-inline">
+          <div class="form-group">
+            <label for="structure_label">Structure Label</label>
+            <%= text_field_tag "label", @logical_order.form_label, id: "structure_label", class: "form-control" %>
+          </div>
+        </form>
+        <% @logical_order.nodes.each do |node| %>
+          <%= render "structure_node", node: node %>
+        <% end %>
+        <% @logical_order.unstructured_objects.nodes.each do |node| %>
+          <%= render "structure_node", node: node %>
+        <% end %>
+      </ul>
     </div>
   </div>
+
+  <div id="list-toolbar" class="col-xs-12 col-sm-4 fixedsticky" role="complementary">
+    <aside class="form-progress panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Save Structure</h3>
+      </div>
+      <div class="list-group">
+        <div class="list-group-item">
+          <fieldset>
+            <legend class="legend-save-work">Sections</legend>
+            <div class="text-center">
+              <a href="" data-action="add-to-list">
+                <button class="btn btn-success">
+                  <span class="glyphicon glyphicon-plus"></span>
+                  Add a Section
+                </button>
+              </a>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class="panel-footer text-center">
+        <%= button_tag type: 'button', class: 'btn btn-primary',
+                       data: { action: 'submit-list',
+                               prefix: Rails.application.config.relative_url_root || '' } do %>
+          Save changes
+        <% end %>
+      </div>     
+    </aside>
+  </div>
+
+  <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="viewer-modal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="clearfix"></div>
+        <%= openseadragon_picture_tag '', data: { openseadragon: { showRotationControl: true }} %>
+      </div>
+    </div>
+  </div>
+
 </div>
 
