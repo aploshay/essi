@@ -1,5 +1,15 @@
-  <div class="actions form-horizontal panel panel-default">
-    <%= button_tag t('.save'), class: "btn btn-primary disabled", data: { action: "save-actions" } %>
-    <%= button_tag t('.sort_alphabetically'), class: "btn btn-primary", data: { action: "alpha-sort-action" } %>
+  <div class="list-group">
+    <div class="list-group-item">
+      <fieldset>
+        <legend class="legend-save-work">Sorting</legend>
+        <div class="text-center">
+          <%= button_tag t('.sort_alphabetically'), class: "btn btn-default", data: { action: "alpha-sort-action" } %>
+        </div>
+      </fieldset>
+    </div>
+
+    <%= render "file_manager_resource_form" %>
   </div>
-  <%= render "file_manager_resource_form" %>
+  <div class="actions panel-footer text-center">
+    <%= button_tag t('.save'), class: "btn btn-primary disabled", data: { action: "save-actions" } %>
+  </div>

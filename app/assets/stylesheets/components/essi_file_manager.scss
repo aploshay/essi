@@ -47,6 +47,9 @@
       float: none;
     }
   }
+  .ui-selectable {
+    margin-top: 0px;
+  }
   .ui-selected {
     background-color: #F39814;
   }
@@ -71,4 +74,9 @@
     margin-top: 0;
   }
   display: none;
+}
+#file-manager-labeling {
+  border: 0px;
+  margin-bottom: -1px;
+  padding: 10px 15px;
 }

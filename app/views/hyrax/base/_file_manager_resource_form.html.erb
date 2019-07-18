@@ -1,4 +1,3 @@
-<div class="well">
   <div class="resource-form-container">
     <%= simple_form_for [main_app, @form], remote: true, html: { id: 'resource-form', 'data-type': 'json' } do |f| %>
       <%= f.input :thumbnail_id, as: :hidden, input_html: { data: {member_link: 'thumbnail_id'}} %>
@@ -13,8 +12,8 @@
         <% directions = ['left-to-right', 'right-to-left', 'top-to-bottom', 'bottom-to-top'] %>
         <% selected_direction = @form.model.viewing_direction || directions.first %>
         <%= f.input :viewing_direction, as: :hidden, input_html: { data: {member_link: 'viewing_direction_option'}, value: selected_direction } %>
-        <div class="form-group <%= f.object.model_name.singular %>_viewing_direction">
-          <label>Viewing Direction:</label>
+        <div class="form-group <%= f.object.model_name.singular %>_viewing_direction list-group-item">
+          <legend class="legend-save-work">Viewing Direction:</legend>
           <% directions.each_with_index do |val, index| %>
             <div class="radio">
               <%= content_tag :label do %>
@@ -30,8 +29,8 @@
         <% hints = ['individuals', 'paged', 'continuous'] %>
         <% selected_hint = @form.model.viewing_hint || hints.first %>
         <%= f.input :viewing_hint, as: :hidden, input_html: { data: {member_link: 'viewing_hint_option'}, value: selected_hint } %>
-        <div class="form-group <%= f.object.model_name.singular %>_viewing_hint">
-          <label>Viewing Hint:</label>
+        <div class="form-group <%= f.object.model_name.singular %>_viewing_hint list-group-item">
+          <legend class="legend-save-work">Viewing Hint:</legend>
           <% hints.each_with_index do |val, index| %>
             <div class="radio">
               <%= content_tag :label do %>
@@ -44,4 +43,3 @@
       <% end %>
     <% end %>
   </div>
-</div>

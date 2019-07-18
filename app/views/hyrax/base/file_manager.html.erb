@@ -1,22 +1,25 @@
-<h1><%= t("hyrax.file_manager.link_text") %></h1>
-<ul class="breadcrumb">
-  <li>
-    <%= t('.back_to') %> <%= link_to @form.to_s, [main_app, @form] %>
-  </li>
-</ul>
+<div class="col-xs-12 main-header">
+  <h1><span class="fa fa-folder-open" aria-hidden="true"></span><%= t("hyrax.file_manager.link_text") %></h1>
+</div>
 
+<div class="row">
 <% if !@form.member_presenters.empty? %>
   <div data-action="file-manager">
-    <div class="col-md-3" id="file-manager-tools">
-      <h2><%= t('.toolbar') %></h2>
-      <%= render "file_manager_actions" %>
-    </div>
-    <div class="col-md-3" id="label-tools-spacer" class="fixed"></div>
-    <div class="col-md-9" id="order-grid">
+    <div class="col-xs-12 col-md-9" id="order-grid">
       <%= render "file_manager_members" %>
     </div>
+    <div class="col-md-3 fixedsticky" id="file-manager-tools">
+      <aside class="form-progress panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><%= t('.toolbar') %></h3>
+        </div>
+        <%= render "file_manager_actions" %>
+      </aside>
+    </div>
+    <div class="col-md-3" id="label-tools-spacer" class="fixed"></div>
   </div>
 <% end %>
 <div id="file-manager-extra-tools">
   <%= render "file_manager_extra_tools" %>
+</div>
 </div>
