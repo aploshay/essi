@@ -24,9 +24,10 @@ RSpec.describe "hyrax/paged_resources/structure.html.erb", type: :view do
       build_file_set(id: "b", to_s: "banana")
     ]
   end
+  let(:curation_concern) { PagedResource.new(id: "test") }
   let(:paged_resource) {
     Hyrax::PagedResourcePresenter.new(
-      SolrDocument.new(PagedResource.new(id: "test").to_solr), nil
+      SolrDocument.new(curation_concern.to_solr), nil
     )
   }
 
@@ -39,13 +40,13 @@ RSpec.describe "hyrax/paged_resources/structure.html.erb", type: :view do
   before do
     assign(:logical_order, logical_order)
     assign(:presenter, paged_resource)
-    render
+    render template: "hyrax/paged_resources/structure.html.erb", locals: { curation_concern: curation_concern }
   end
   it "renders a li per node" do
-    expect(rendered).to have_selector("li", count: 5)
+    expect(rendered).to have_selector("li", count: 3)
   end
   it "renders a ul per order" do
-    expect(rendered).to have_selector("ul", count: 3)
+    expect(rendered).to have_selector("ul", count: 2)
   end
   it "renders labels of chapters" do
     expect(rendered).to have_selector("input[value='Chapter 1']")
