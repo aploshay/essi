@@ -8,6 +8,7 @@ module Hyrax
     include ESSI::BibRecordsControllerBehavior
     include ESSI::RemoteMetadataLookupBehavior
     include Hyrax::BreadcrumbsForWorks
+    include ESSI::BreadcrumbsForWorks
     self.curation_concern_type = ::BibRecord
 
     # Use this line if you want to use a custom presenter

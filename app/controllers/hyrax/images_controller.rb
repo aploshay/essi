@@ -7,6 +7,7 @@ module Hyrax
     include Hyrax::WorksControllerBehavior
     include ESSI::ImagesControllerBehavior
     include Hyrax::BreadcrumbsForWorks
+    include ESSI::BreadcrumbsForWorks
     self.curation_concern_type = ::Image
 
     # Use this line if you want to use a custom presenter
