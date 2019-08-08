@@ -14,4 +14,5 @@ class FileSet < ActiveFedora::Base
      ESSI.config.dig(:essi, :hocr_language),
      'eng'].map { |l| Tesseract.try_languages(l) }.select(&:present?).first
   end
+
 end
