@@ -8,15 +8,10 @@ module ESSI
       super.tap do |solr_doc|
         solr_doc['is_page_of_ssi'] = object.parent.id if object.parent
 
-        puts "************************"
-        puts object.extracted_text.present?
         solr_doc['text_tesim'] = object.extracted_text.content if object.extracted_text.present?
-
-
-        solr_doc['word_boundary_tesim'] = ::NewspaperWorks::TextExtraction::AltoReader.new(object.extracted_text.content).json if object.extracted_text.present?
+        solr_doc['word_boundary_tsi'] = ::NewspaperWorks::TextExtraction::AltoReader.new(object.extracted_text.content).json if object.extracted_text.present?
       end
     end
-
   end
 end
 
