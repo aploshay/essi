@@ -68,6 +68,7 @@ jobs:
           curl -fSL -o /opt/fits/fits-1.4.0.zip https://github.com/harvard-lts/fits/releases/download/1.4.0/fits-1.4.0.zip
           cd /opt/fits && unzip fits-1.4.0.zip && chmod +X fits.sh
           echo 'export PATH=/opt/fits:$PATH' >> $BASH_ENV
+          sudo apt-get install libxml2-utils
 
     # Download and cache dependencies
     - restore_cache:
