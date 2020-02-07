@@ -29,9 +29,10 @@ module Hyrax
 
       # GET /m3_profiles/new
       def new
-        if M3::Profile.count > 0
-          redirect_to my_m3_profiles_path, alert: 'Edit an Existing Profile or Upload a New One'
-        end
+        # FIXME: temporarily commenting out check
+        # if M3::Profile.count > 0
+        #   redirect_to my_m3_profiles_path, alert: 'Edit an Existing Profile or Upload a New One'
+        # end
 
         add_breadcrumb t(:'hyrax.controls.home'), main_app.root_path
         add_breadcrumb t(:'hyrax.dashboard.breadcrumbs.admin'), hyrax.dashboard_path
