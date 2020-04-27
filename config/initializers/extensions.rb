@@ -23,6 +23,11 @@ Rails.application.config.after_initialize do
   # add collection banner to works and file sets.
   Hyrax::FileSetPresenter.include Extensions::Hyrax::FileSetPresenter::CollectionBanner
   Hyrax::WorkShowPresenter.include Extensions::Hyrax::WorkShowPresenter::CollectionBanner
+
+  # Use FileSet to store and display collection banner/logo image
+  Hyrax::Forms::CollectionForm.prepend Extensions::Hyrax::Forms::CollectionForm::FileSetBackedBranding
+  Hyrax::CollectionPresenter.prepend Extensions::Hyrax::CollectionPresenter::FileSetBackedBranding
+  Hyrax::Dashboard::CollectionsController.prepend Extensions::Hyrax::Dashboard::CollectionsController::FileSetBackedBranding
 end
 
 # primary fields support
