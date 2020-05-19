@@ -15,6 +15,7 @@ RUN groupadd -g ${GROUP_ID} essi && \
     apt-get update -qq && \
     apt-get install -y build-essential default-jre-headless libpq-dev nodejs \
       libreoffice-writer libreoffice-impress imagemagick unzip ghostscript && \
+# FIXME: install graphicsmagick, exiftool?
     apt-get install -y libtesseract-dev libleptonica-dev liblept5 tesseract-ocr -t testing \
     yarn && \
     rm -rf /var/lib/apt/lists/*

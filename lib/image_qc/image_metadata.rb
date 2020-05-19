@@ -7,6 +7,8 @@ module ImageQC
         GraphicsMagickMetadata
       when :imagemagick
         ImageMagickMetadata
+      when :imagemagick7
+        raise "ImageMagick7 support not implemented"
       else
         raise "No metadata reader defined for CLI :#{cli}"
       end
