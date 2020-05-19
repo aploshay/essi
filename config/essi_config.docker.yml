@@ -161,6 +161,8 @@ default: &default
       example_admin_set:
         title: Example title
         url: https://example.com
+    image_qc:
+      validator: '' # ex: 'ImageQC::ImageValidator::IUBImageValidator'
         
 development:
   <<: *default

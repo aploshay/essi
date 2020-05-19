@@ -1,0 +1,2 @@
+module ImageQC
+end
