@@ -162,7 +162,7 @@ default: &default
         title: Example title
         url: https://example.com
     image_qc:
-      validator: '' # ex: 'ImageQC::ImageValidator::IUBImageValidator'
+      validator: 'ImageQC::ImageValidator::IUBImageValidator'
         
 development:
   <<: *default

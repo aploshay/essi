@@ -35,5 +35,7 @@ Hyrax::Forms::CollectionForm.prepend Extensions::Hyrax::Forms::CollectionForm::F
 Hyrax::CollectionPresenter.prepend Extensions::Hyrax::CollectionPresenter::FileSetBackedBranding
 Hyrax::Dashboard::CollectionsController.prepend Extensions::Hyrax::Dashboard::CollectionsController::FileSetBackedBranding
 
+
 Hyrax::CurationConcern.actor_factory.insert Hyrax::Actors::TransactionalRequest, ESSI::Actors::PerformLaterActor
 Hyrax::CurationConcern.actor_factory.swap Hyrax::Actors::CreateWithRemoteFilesActor, ESSI::Actors::CreateWithRemoteFilesActor
+Hyrax::CurationConcern.actor_factory.insert ESSI::Actors::PerformLaterActor, ESSI::Actors::QualityControlUploadedFilesActor
