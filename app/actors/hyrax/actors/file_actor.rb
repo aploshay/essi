@@ -22,8 +22,9 @@ module Hyrax
       # @see IngestJob
       # @todo create a job to monitor the temp directory (or in a multi-worker system, directories!) to prune old files that have made it into the repo
       def ingest_file(io)
-        # FIXME: pass along mimetype, filename options?
         if store_files?
+          transform_to_jp2(io) if transform_to_jp2?
+
           Hydra::Works::AddFileToFileSet.call(file_set,
                                               io,
                                               relation,
@@ -72,6 +73,30 @@ module Hyrax
 
         def store_files?
           ESSI.config.dig :essi, :store_original_files
+        end
+
+        def transform_to_jp2?
+          ESSI.config.dig :essi, :store_files_as_jp2
+        end
+
+        def transform_to_jp2(io)
+          # FIXME: only transform tiffs?
+          return unless io.path.match /\.tif+$/
+          original_path = io.path
+          new_path = original_path.sub(/\.tif+$/, '.jp2')
+          url = URI("file://#{new_path}").to_s
+          if Hydra::Derivatives.kdu_compress_path.present?
+            # FIXME: chokes on compressed tiffs
+            # FIXME: chokes on small tiffs that generate a negative compression value
+            Hydra::Derivatives::Jpeg2kImageDerivatives.create(original_path, { outputs: [ url: url, recipe: :default ]})
+          else
+            MiniMagick::Tool::Convert.new do |convert|
+              convert << original_path
+              convert << new_path
+            end
+          end
+          io.path = new_path
+          io.mime_type = MIME::Types.type_for('jp2').first.to_s
         end
     
         def master_file_service_url

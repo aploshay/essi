@@ -16,7 +16,8 @@ RUN groupadd -g ${GROUP_ID} essi && \
     apt-get install -y build-essential default-jre-headless libpq-dev nodejs \
       libreoffice-writer libreoffice-impress imagemagick unzip ghostscript && \
     apt-get install -y libtesseract-dev libleptonica-dev liblept5 tesseract-ocr -t testing \
-    yarn && \
+      yarn \
+      libopenjp2-tools && \
     rm -rf /var/lib/apt/lists/*
 RUN yarn && \
     yarn config set no-progress && \
