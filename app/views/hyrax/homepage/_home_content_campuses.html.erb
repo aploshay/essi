@@ -1,2 +1,18 @@
 <h1>Explore Collections at IU Campuses</h1>
-<!-- collections by campus here -->
+<div>
+  <div>
+    <div>
+    <% CampusService.campuses.each do |campus| %>
+      <div style="width: 33%; float: left; padding: 12px;">
+        <div style="background-color: #fff; margin: 6px;">
+          <h3><%= campus.label %></h3>
+          <img src="<%= campus.img_src %>" alt="<%= campus.img_alt %>" style="height: auto; display: inline-block; max-width: 100%"/>
+          <%= link_to 'Explore collections',
+              main_app.search_catalog_path(f: { campus_sim: [campus.code], human_readable_type_sim: ["Collection"]}),
+              class: 'button' %>
+        </div>
+      </div>
+    <% end %>
+    </div>
+  </div>
+</div>

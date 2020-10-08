@@ -15,4 +15,19 @@ module CampusService
   def self.find(id)
     authority.find(id)
   end
+
+  def self.campuses
+    authority.all.map { |element| Campus.new(element) }
+  end
+
+  class Campus
+    attr_accessor :label, :code, :img_src, :img_alt
+
+    def initialize(values)
+      @label = values[:label]
+      @code = values[:code]
+      @img_src = values[:img_src]
+      @img_alt = values[:img_alt]
+    end
+  end
 end
