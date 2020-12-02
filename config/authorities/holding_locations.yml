@@ -41,8 +41,11 @@ terms:
 - id: https://libraries.indiana.edu/wells
   term: Herman B Wells Library
   address: 1320 East Tenth Street
-  phone_number: (812) 855-0100
-  contact_email: libref@indiana.edu
+  city: Bloomington
+  state: IN
+  zip: 47405
+  phone: (812) 855-0100
+  email: libref@indiana.edu
   gfa_pickup: PW
   staff_only: false
   pickup_location: true
