@@ -4,7 +4,7 @@ module ESSI
       def create(env)
         ::Rails.logger.debug "Called ESSI::Actors::CreateWithRemoteFilesOrderedMembersStructureActor#create for #{env.curation_concern.id}"
         structure = env.attributes.delete(:structure)&.deep_symbolize_keys
-        super(env) && save_structure(env,structure) && copy_visibility(env) && inherit_permissions(env)
+        super(env) && save_structure(env,structure)
       end
 
       def update(env)
@@ -91,15 +91,6 @@ module ESSI
         def structure_to_repo_map
           @structure_to_repo_map ||= {}
         end
-
-      def copy_visibility(env)
-        VisibilityCopyJob.perform_now(env.curation_concern)
-      end
-
-      def inherit_permissions(env)
-        InheritPermissionsJob.perform_now(env.curation_concern)
-      end
-
     end
   end
 end
