@@ -54,7 +54,28 @@ module Hyrax
         delete_characterization_path ||= false
         characterization_path ||= pathhint_for(io)
         derivation_path ||= pathhint_for(io)
-        CharacterizeJob.perform_later(file_set, repository_file.id, characterization_path, derivation_path, delete_characterization_path) if characterize_files?(file_set)
+
+        # CharacterizeJob.perform_later(file_set, repository_file.id, characterization_path, derivation_path, delete_characterization_path) if characterize_files?(file_set)
+        # set up arguments for unmodified CharacterizeJob
+        file_id = repository_file.id
+        filepath = characterization_path
+        # essentially unmodified code of CharacterizeJob:
+        raise "#{file_set.class.characterization_proxy} was not found for FileSet #{file_set.id}" unless file_set.characterization_proxy?
+        unless filepath && File.exist?(filepath)
+          filepath = Hyrax::WorkingDirectory.find_or_retrieve(file_id, file_set.id) unless filepath && File.exist?(filepath)
+          delete_characterization_path = false
+        end
+        Hydra::Works::CharacterizationService.run(file_set.characterization_proxy, filepath)
+        Rails.logger.debug "Ran characterization on #{file_set.characterization_proxy.id} (#{file_set.characterization_proxy.mime_type})"
+        file_set.characterization_proxy.save!
+        file_set.update_index
+        file_set.parent&.in_collections&.each(&:update_index)
+        derivation_path = filepath unless derivation_path && File.exist?(derivation_path)
+        CreateDerivativesJob.perform_later(file_set, file_id, derivation_path)
+        if delete_characterization_path
+          File.unlink(filepath)
+          Dir.rmdir(File.dirname(filepath)) if delete_characterization_path.to_s == 'include_parent_dir'
+        end
       end
 
       # Reverts file and spawns async job to characterize and create derivatives.
