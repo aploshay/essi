@@ -71,11 +71,32 @@ module Hyrax
         file_set.update_index
         file_set.parent&.in_collections&.each(&:update_index)
         derivation_path = filepath unless derivation_path && File.exist?(derivation_path)
-        CreateDerivativesJob.perform_later(file_set, file_id, derivation_path)
+
+        # CreateDerivativesJob.perform_later(file_set, file_id, derivation_path)
+        # essentially unmodified code of CreateDerivativesJob
+        return if file_set.video? && !Hyrax.config.enable_ffmpeg
+        filename = Hyrax::WorkingDirectory.find_or_retrieve(file_id, file_set.id, filepath)
+    
+        file_set.create_derivatives(filename)
+    
+        # Reload from Fedora and reindex for thumbnail and extracted text
+        file_set.reload
+        file_set.update_index
+        file_set.parent.update_index if parent_needs_reindex?(file_set)
+
+        # final portion of CharacterizeJob code
         if delete_characterization_path
           File.unlink(filepath)
           Dir.rmdir(File.dirname(filepath)) if delete_characterization_path.to_s == 'include_parent_dir'
         end
+      end
+
+      # imported from CreateDerivativesJob
+      # If this file_set is the thumbnail for the parent work,
+      # then the parent also needs to be reindexed.
+      def parent_needs_reindex?(file_set)
+        return false unless file_set.parent
+        file_set.parent.thumbnail_id == file_set.id
       end
 
       # Reverts file and spawns async job to characterize and create derivatives.
