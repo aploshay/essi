@@ -157,3 +157,11 @@ IIIFManifest::ManifestBuilder::RecordPropertyBuilder.prepend Extensions::IIIFMan
 
 # read pre-supplied file characterization, if present
 Hydra::Works::CharacterizationService.prepend Extensions::Hydra::Works::CharacterizationService::Precharacterization
+
+# undo SequentialJob sequencing on specific jobs
+CreateDerivativesJob.prepend ParallelJob
+CreateOCRJob.prepend ParallelJob
+CharacterizeJob.prepend ParallelJob
+FileSetAttachedEventJob.prepend ParallelJob
+IngestLocalFileJob.prepend ParallelJob
+IngestJob.prepend ParallelJob
