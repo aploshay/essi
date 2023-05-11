@@ -12,7 +12,7 @@ module Extensions
           #   only includes ids of ordered members.
           def ordered_member_ids
             return [] if id.blank?
-            @ordered_member_ids ||= query_for_ordered_ids
+            @ordered_member_ids ||= self['member_ids_ssim']
           end
         end
       end
