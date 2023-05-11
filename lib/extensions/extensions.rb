@@ -154,3 +154,7 @@ Hyrax::PresenterFactory.prepend Extensions::Hyrax::PresenterFactory::SolrRowLimi
 
 # prevent double-display of description from flexible metadata
 IIIFManifest::ManifestBuilder::RecordPropertyBuilder.prepend Extensions::IIIFManifest::ManifestBuilder::RecordPropertyBuilder::DynamicDescription
+
+# experimental changes
+Hyrax::MemberPresenterFactory.prepend Extensions::Hyrax::MemberPresenterFactory::FileSetIds
+Hyrax::SolrDocument::OrderedMembers.prepend Extensions::Hyrax::SolrDocument::OrderedMembers::OrderedMemberIds
