@@ -5,6 +5,7 @@ class BibRecordIndexer < Hyrax::WorkIndexer
   include ESSI::BibRecordIndexerBehavior
   include ESSI::IIIFThumbnailBehavior
   include ESSI::IndexesFilesets
+  include ESSI::IndexesOrderedMembers
   include ESSI::IndexesNumPages
   include ESSI::IndexesSortableMetadata
 

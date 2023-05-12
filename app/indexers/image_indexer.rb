@@ -5,6 +5,7 @@ class ImageIndexer < Hyrax::WorkIndexer
   include ESSI::ImageIndexerBehavior
   include ESSI::IIIFThumbnailBehavior
   include ESSI::IndexesFilesets
+  include ESSI::IndexesOrderedMembers
   include ESSI::IndexesNumPages
   include ESSI::IndexesSortableMetadata
 

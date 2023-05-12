@@ -5,6 +5,7 @@ class ScientificIndexer < Hyrax::WorkIndexer
   include ESSI::ScientificIndexerBehavior
   include ESSI::IIIFThumbnailBehavior
   include ESSI::IndexesFilesets
+  include ESSI::IndexesOrderedMembers
   include ESSI::IndexesNumPages
   include ESSI::IndexesSortableMetadata
 

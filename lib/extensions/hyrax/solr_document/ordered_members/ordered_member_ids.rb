@@ -1,3 +1,4 @@
+# modified from stock hyrax to use already-indexed value, if available
 module Extensions
   module Hyrax
     module SolrDocument
@@ -12,7 +13,7 @@ module Extensions
           #   only includes ids of ordered members.
           def ordered_member_ids
             return [] if id.blank?
-            @ordered_member_ids ||= self['member_ids_ssim']
+            @ordered_member_ids ||= self['ordered_member_ids_ssim'] || query_for_ordered_ids
           end
         end
       end

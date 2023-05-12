@@ -5,6 +5,7 @@ class ArchivalMaterialIndexer < Hyrax::WorkIndexer
   include ESSI::ArchivalMaterialIndexerBehavior
   include ESSI::IIIFThumbnailBehavior
   include ESSI::IndexesFilesets
+  include ESSI::IndexesOrderedMembers
   include ESSI::IndexesNumPages
   include ESSI::IndexesSortableMetadata
 
