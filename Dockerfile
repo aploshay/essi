@@ -11,7 +11,7 @@ RUN groupadd -g ${GROUP_ID} essi && \
     curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
     apt-get update -qq && \
     apt-get install -y --no-install-recommends build-essential default-jre-headless libpq-dev nodejs \
-      libreoffice-writer libreoffice-impress poppler-utils unzip ghostscript \
+      libreoffice-writer libreoffice-impress poppler-utils imagemagick unzip ghostscript \
       libtesseract-dev libleptonica-dev liblept5 tesseract-ocr \
       yarn libopenjp2-tools libjemalloc2 && \
     apt-get clean all && rm -rf /var/lib/apt/lists/* && \
@@ -75,6 +75,10 @@ RUN gem update bundler && \
     bundle install -j 2 --retry=3 --deployment --without development
 
 COPY --chown=essi:essi . .
+
+# The defaults for ImageMagick are too constrained, override so that MiniMagick won't fail
+RUN mkdir -p /etc/ImageMagick-6/
+COPY ./config/ImageMagick-6/policy.xml /etc/ImageMagick-6/
 
 ENV RAILS_LOG_TO_STDOUT true
 ENV RAILS_ENV production
