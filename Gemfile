@@ -1,5 +1,9 @@
 source 'https://rubygems.org'
 
+gem "posix-spawn", github: "https://github.com/rtomayko/posix-spawn/pull/93"
+
+gem "libxml-ruby", '~> 3.1.0', path: "vendor/bundle/ruby/2.7.0/gems/libxml-ruby-3.1.0"
+
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"

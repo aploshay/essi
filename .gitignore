@@ -61,3 +61,6 @@ solr/config/*
 
 # Ignore swp files
 .*.sw?
+
+# Ignore bundle
+/vendor/bundle

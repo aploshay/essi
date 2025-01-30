@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   with_themed_layout '1_column'
   protect_from_forgery with: :exception
 
-  around_action :global_request_logging
+  # around_action :global_request_logging
 
   before_action do
     if defined?(Rack::MiniProfiler) && current_user && current_user.admin?

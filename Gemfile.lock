@@ -18,6 +18,13 @@ GIT
       rubyzip (>= 1.0.0)
 
 GIT
+  remote: https://github.com/rtomayko/posix-spawn.git
+  revision: 0fce38ed5458b638eda5f3bb711903424a4366db
+  ref: refs/pull/93/head
+  specs:
+    posix-spawn (0.3.15)
+
+GIT
   remote: https://github.com/scientist-softserv/iiif_print.git
   revision: b804f165ef614a84acdd239851a1ee3e35c39854
   ref: b804f16
@@ -30,6 +37,11 @@ GIT
       rails (~> 5.0)
       rdf-vocab (~> 3.0)
       reform-rails (= 0.2.3)
+
+PATH
+  remote: vendor/bundle/ruby/2.7.0/gems/libxml-ruby-3.1.0
+  specs:
+    libxml-ruby (3.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -625,7 +637,6 @@ GEM
       rdf (~> 3.0)
     legato (0.7.0)
       multi_json
-    libxml-ruby (3.1.0)
     link_header (0.0.8)
     linkeddata (3.1.1)
       equivalent-xml (~> 0.6)
@@ -731,7 +742,6 @@ GEM
       ast (~> 2.4.1)
     parslet (2.0.0)
     pdf-core (0.9.0)
-    posix-spawn (0.3.15)
     power_converter (0.1.2)
     prawn (2.4.0)
       pdf-core (~> 0.9.0)
@@ -1128,12 +1138,14 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   ldap_groups_lookup (~> 0.11.0)
+  libxml-ruby (~> 3.1.0)!
   listen (>= 3.0.5, < 3.2)
   marc (~> 1.0.0)
   mysql2
   okcomputer
   omniauth
   omniauth-cas
+  posix-spawn!
   prawn
   puma
   rack-mini-profiler
@@ -1164,4 +1176,4 @@ DEPENDENCIES
   willow_sword!
 
 BUNDLED WITH
-   2.4.12
+   2.4.22
