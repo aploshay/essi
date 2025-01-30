@@ -184,3 +184,6 @@ IIIFManifest::ManifestBuilder::DeepFileSetEnumerator.prepend Extensions::IIIFMan
 
 # support for memoizing the member_presenter_factory
 Hyrax::WorkShowPresenter.prepend Extensions::Hyrax::WorkShowPresenter::MemberPresenterFactoryMemoization
+
+# support for FileSetPresenter#content_location
+Hyrax::FileSetPresenter.include Extensions::Hyrax::FileSetPresenter::ContentLocation
