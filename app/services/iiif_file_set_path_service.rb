@@ -1,11 +1,16 @@
 class IIIFFileSetPathService
   attr_reader :file_set, :lookup_id
 
-  # @param [ActiveFedora::SolrHit, FileSet, SolrDocument, FileSetPresenter] file_set
+  # @param [ActiveFedora::SolrHit, FileSet, SolrDocument, Hyrax::FileSetPresenter] file_set
+  # @param [TrueClass, FalseClass, NilClass] versioned_look: whether to use versioned file lookup if original_file_id fails
   def initialize(file_set, versioned_lookup: false)
-    file_set = SolrDocument.new(file_set) if file_set.is_a? ActiveFedora::SolrHit
-    @file_set = file_set
-    @lookup_id = (versioned_lookup ? versioned_lookup_id : basic_lookup_id)
+    file_set = SolrDocument.new(file_set) if file_set.class.in? [ActiveFedora::SolrHit, Hash]
+    if [:id, :content_location, :original_file_id].map { |m| file_set.respond_to?(m) }.all?
+      @file_set = file_set
+      @lookup_id = (versioned_lookup ? versioned_lookup_id : basic_lookup_id)
+    else
+      raise StandardError, 'Provided file_set does not meet interface requirements' 
+    end
   end
 
   # @return [String] a URL that resolves to an image provided by a IIIF image server
@@ -23,21 +28,23 @@ class IIIFFileSetPathService
   private
     # imported logic from IIIFThumbnailPathService, etc
     def basic_lookup_id
-      file_set.content_location || file_set.original_file_id
+      @basic_lookup_id ||= (file_set.content_location || file_set.original_file_id)
     end
 
     # imported from Hyrax::DisplaysImage
     def versioned_lookup_id
-      return file_set.content_location if file_set.content_location&.start_with?('s3://')
-      result = file_set.original_file_id
-      if result.blank?
-        Rails.logger.warn "original_file_id for #{id} not found, falling back to Fedora."
-        # result = Hyrax::VersioningService.versioned_file_id(original_file)
-        result = versioned_file_id(original_file)
+      @versioned_lookup_id ||= begin
+        return file_set.content_location if file_set.content_location&.start_with?('s3://')
+        result = file_set.original_file_id
+        if result.blank?
+          Rails.logger.warn "original_file_id for #{file_set.id} not found, falling back to Fedora."
+          # result = Hyrax::VersioningService.versioned_file_id(original_file)
+          result = versioned_file_id(original_file)
+        end
+        result
       end
-      result
     end
-  
+
     # @return Hydra::PCDM::File
     def original_file
       @original_file ||= 
@@ -45,7 +52,7 @@ class IIIFFileSetPathService
         when FileSet
           file_set.original_file
         else
-          FileSet.find(id).original_file
+          FileSet.find(file_set.id).original_file
         end
     end
 
@@ -53,11 +60,14 @@ class IIIFFileSetPathService
     # cherry-picked from Hyrax 3.x VersioningService
     # @param [ActiveFedora::File | Hyrax::FileMetadata] content
     def versioned_file_id(file)
-      versions = file.versions.all
-      if versions.present?
-        ActiveFedora::File.uri_to_id versions.last.uri
-      else
-        file.id
+      @versioned_file_id ||= begin
+        raise StandardError, 'No original_file available for versioning' if file.nil?
+        versions = file.versions.all
+        if versions.present?
+          ActiveFedora::File.uri_to_id versions.last.uri
+        else
+          file.id
+        end
       end
     end
 end
