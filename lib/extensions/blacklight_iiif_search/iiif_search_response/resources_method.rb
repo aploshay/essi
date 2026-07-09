@@ -1,4 +1,4 @@
-# modified from blacklight_iiif_search v1.0.0
+# modified from blacklight_iiif_search v1.0.0 FIXME hold back gemfile version??
 # changes behavior to return every match on a page, instead of only the first
 module Extensions
   module BlacklightIiifSearch
